@@ -13,7 +13,7 @@ Theatrix is bundled together with [Fastclick](https://github.com/ftlabs/fastclic
 Threatix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
 ```
 <ul id="navigation">
-	<li id="scene1" class="active" data-down="scene2" data-link="scene1" data-callbackin="function">Scene 1</li>
+	<li id="scene1" data-down="scene2" data-link="scene1" data-callbackin="function">Scene 1</li>
 	<li id="scene2" data-up="scene1" data-link="scene2,1000" data-callbackout="function">Scene 2</li>
 </ul>
 ```
@@ -34,7 +34,7 @@ data-callbackout="" // call a js function on out
 
 ## Example of generated body-tag
 ```
-<body class="scene1 scene1-in scene2 scene2-out up" data-in="scene1" data-out="scene2" data-direction="up">
+<body class="scene1 scene1-out scene2 scene2-in down" data-in="scene2" data-out="scene1" data-direction="down">
 ```
 
 ## Targeting interativity via css
