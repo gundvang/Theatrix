@@ -1,9 +1,51 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<title>Theatrix</title>
+		<link type="text/css" rel="stylesheet" href="assets/css/app.css" />
 	</head>
 	<body>
+		<ul id="pagination">
+			<li id="scene1" data-down="scene2" data-left="scene01" data-right="scene11" data-link="scene1" data-title="Scene1"></li>
+			<li id="scene01" data-right="scene1" data-down="scene02" data-esc="scene1"></li>
+			<li id="scene11" data-left="scene1" data-down="scene12" data-esc="scene1"></li>
+			<li id="scene2" data-up="scene1" data-down="scene3" data-left="scene02" data-right="scene12" data-link="scene2" data-title="Scene 2"></li>
+			<li id="scene02" data-right="scene2" data-up="scene01" data-esc="scene2"></li>
+			<li id="scene12" data-left="scene2" data-up="scene11" data-esc="scene2"></li>
+			<li id="scene3" data-up="scene2" data-down="scene4" data-link="scene3" data-title="Scene 3"></li>
+			<li id="scene4" data-up="scene3" data-link="scene4" data-title="Scene 4"></li>
+		</ul>
 		
+		<div class="scene scene1" data-link="scene1"></div>
+		<div class="scene scene2" data-link="scene2"></div>
+		<div class="scene scene3" data-link="scene3"></div>
+		<div class="scene scene4" data-link="scene4"></div>
+		<div class="scene scene01" data-link="scene01"></div>
+		<div class="scene scene11" data-link="scene11"></div>
+		<div class="scene scene02" data-link="scene02"></div>
+		<div class="scene scene12" data-link="scene12"></div>
+		
+		<div class="illustration teams">
+			<div class="card-1"></div>
+			<div class="card-2"></div>
+			<div class="card-3"></div>
+			<div class="card-4"></div>
+		</div>
+		
+		<div class="text scene1-title">Scene 1</div>
+		<div class="text scene01-title">Scene 1 - left</div>
+		<div class="text scene11-title">Scene 1 - right</div>
+		<div class="text scene2-title">Scene 2</div>
+		<div class="text scene02-title">Scene 2 - left</div>
+		<div class="text scene12-title">Scene 2 - right</div>
+		<div class="text scene3-title">Scene 3</div>
+		<div class="text scene4-title">Scene 4</div>
+		
+		<script type="text/javascript" src="resources/vendors/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="resources/vendors/fastclick.min.js"></script>
+		<script type="text/javascript" src="resources/vendors/jquery.touchswipe.min.js"></script>
+		<script type="text/javascript" src="resources/vendors/jquery-mousewheel-master/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="resources/assets/js/theatrix.js"></script>
+		<script type="text/javascript" src="resources/assets/js/app.js"></script>
 	</body>
 </html>

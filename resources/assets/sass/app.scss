@@ -1,0 +1,96 @@
+
+@import 'mixins/_keyframes';
+
+body {
+	font-family: Verdana, sans-serif;
+	overflow: hidden;
+}
+ul#pagination {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	list-style: none;
+}
+ul#pagination li {
+	position: relative;
+	display: none;
+	width: 30px;
+	height: 30px;
+	background-color: #444;
+	margin: 10px;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: 100ms background-color ease-in-out;
+}
+ul#pagination li[data-link] {
+	display: block;
+}
+ul#pagination li.active {
+	background-color: #af2222;
+}
+ul#pagination li:after {
+	content: attr(data-title);
+	position: absolute;
+	top: 0;
+	right: 100%;
+	color: #444;
+	height: 100%;
+	width: 300px;
+	text-align: right;
+	line-height: 30px;
+	margin-right: 10px;
+	opacity: 0;
+	pointer-events: none;
+	transition: 200ms all ease-in-out;
+}
+ul#pagination li:hover:after {
+	opacity: 1;
+}
+
+
+
+.scene {
+	position: absolute;
+	top: 40px;
+	left: 80px;
+	background-color: #444;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+.scene01 {
+	margin-left: -40px;
+}
+.scene11 {
+	margin-left: 40px;
+}
+.scene2 {
+	margin-top: 40px;
+}
+.scene02 {
+	margin-left: -40px;
+	margin-top: 40px;
+}
+.scene12 {
+	margin-left: 40px;
+	margin-top: 40px;
+}
+.scene3 {
+	margin-top: 80px;
+}
+.scene4 {
+	margin-top: 120px;
+}
+body[data-active="scene1"] .scene1,
+body[data-active="scene01"] .scene01,
+body[data-active="scene11"] .scene11,
+body[data-active="scene2"] .scene2,
+body[data-active="scene02"] .scene02,
+body[data-active="scene12"] .scene12,
+body[data-active="scene3"] .scene3,
+body[data-active="scene4"] .scene4 {
+	background-color: #af2222;
+}
+
+@import 'scenes/scene1';
