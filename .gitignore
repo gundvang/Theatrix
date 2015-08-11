@@ -1,3 +1,5 @@
 /node_modules
 /resources
 .DS_Store
+gulpfile.js
+package.json
