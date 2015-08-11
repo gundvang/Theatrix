@@ -64,4 +64,4 @@ Theatrix.setup([
 ## Initialization
 ```
 Theatrix.init();
-``
+```
