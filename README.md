@@ -1,13 +1,10 @@
 # Theatrix (in development)
 Vendor for creating animation based sites with keyboard and touch support
 
-### Example
-<body class="scene1-in scene2-out up" data-current="scene1" data-previous="scene2" data-direction="up">
-
-### Animation directions
+## Animation directions
 .start / .up / .down / .left / .right / .link
 
-### Creating navigation
+## Creating navigation
 Threatix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
 ```
 <ul id="navigation">
@@ -16,7 +13,12 @@ Threatix works by looking through the navigation and looking for data-tags linki
 </ul>
 ```
 
-### creating animations via css
+## data-tags example
+```
+<body class="scene1-in scene2-out up" data-current="scene1" data-previous="scene2" data-direction="up">
+```
+
+## creating animations via css
 To create animations on specific scenes and/or specific directions. You can target these in many ways. Below are shown a few examples:
 ```
 body[data-current="scene1"][data-direction="up"] .scene {  }
@@ -26,7 +28,7 @@ body[data-current="scene1"][data-direction="up"] .actor {  }
 body[data-current="scene1"][data-direction="up"] .script {  }
 ```
 
-### Setup customization
+## Setup customization
 ```
 Theatrix.setup([
 	'defaultTime' => '1000', // lock time between scenes in milliseconds
@@ -38,12 +40,12 @@ Theatrix.setup([
 ]);
 ```
 
-### Initialization
+## Initialization
 ```
 Theatrix.init();
-``
+```
 
-### Recommended file structure
+## Recommended file structure
 ```
 scripts:
 	jquery
