@@ -8,12 +8,11 @@
   display: none; }
   .illustration.teams .card-1 {
     position: absolute;
-    top: 25%;
-    right: 0;
-    width: 30%;
-    height: 100%;
-    background-image: url("../img/teams/card-1.svg");
-    background-repeat: no-repeat; }
+    top: calc(50% - 100px);
+    right: calc(25% - 100px);
+    width: 200px;
+    height: 200px;
+    background-color: #af7777; }
 
 body .illustration.teams {
   animation: fadeOut 250ms linear;

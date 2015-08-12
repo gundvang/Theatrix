@@ -18,7 +18,7 @@ Theatrix works by looking through the navigation and looking for data-tags linki
 </ul>
 ```
 
-### data-tags
+#### data-tags
 ```
 data-link="" // click link to a scene (can be used outside of navigation as well)
 data-direction="" // overwrites data-link's default data-direction (can be used outside of navigation as well)
@@ -59,6 +59,9 @@ Theatrix.setup([
 	'scrollEnabled' => true, // turns scroll on/off
 	'swipeEnabled' => true, // turn touch swipe on/off
 	'reverseSwipe' => false, // reverses swipe directions
+	'fastClickEnabled' => true, // turns fastClick script on/off
+	'bodyClassEnabled' => true, // turns body classes on/off
+	'bodyDataEnabled' => true, // turns body data-tags on/off
 ]);
 ```
 

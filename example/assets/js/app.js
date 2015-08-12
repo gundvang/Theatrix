@@ -12,6 +12,7 @@ $('[data-link]').on('click', function(event) {
 
 Theatrix.setup({
   	navigation: 'navigation',
+  	bodyClassEnabled: true,
 });
 
 Theatrix.init();

@@ -345,7 +345,8 @@
 
 body {
   font-family: Verdana, sans-serif;
-  overflow: hidden; }
+  overflow: hidden;
+  color: #666; }
 
 ul#navigation {
   position: fixed;
@@ -359,7 +360,7 @@ ul#navigation li {
   display: none;
   width: 30px;
   height: 30px;
-  background-color: #444;
+  background-color: #666;
   margin: 10px;
   border-radius: 3px;
   cursor: pointer;
@@ -369,14 +370,14 @@ ul#navigation li[data-link] {
   display: block; }
 
 ul#navigation li.active {
-  background-color: #af2222; }
+  background-color: #af4444; }
 
 ul#navigation li:after {
   content: attr(data-title);
   position: absolute;
   top: 0;
   right: 100%;
-  color: #444;
+  color: #666;
   height: 100%;
   width: 300px;
   text-align: right;
@@ -393,7 +394,7 @@ ul#navigation li:hover:after {
   position: absolute;
   top: 40px;
   left: 80px;
-  background-color: #444;
+  background-color: #666;
   width: 40px;
   height: 40px;
   cursor: pointer; }
@@ -429,7 +430,7 @@ body.scene02-in .scene.scene02,
 body.scene12-in .scene.scene12,
 body.scene3-in .scene.scene3,
 body.scene4-in .scene.scene4 {
-  background-color: #af2222; }
+  background-color: #af4444; }
 
 .illustration.teams {
   position: absolute;
@@ -441,12 +442,11 @@ body.scene4-in .scene.scene4 {
   display: none; }
   .illustration.teams .card-1 {
     position: absolute;
-    top: 25%;
-    right: 0;
-    width: 30%;
-    height: 100%;
-    background-image: url("../img/teams/card-1.svg");
-    background-repeat: no-repeat; }
+    top: calc(50% - 100px);
+    right: calc(25% - 100px);
+    width: 200px;
+    height: 200px;
+    background-color: #af4444; }
 
 body .illustration.teams {
   animation: fadeOut 250ms linear;
