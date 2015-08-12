@@ -1,15 +1,15 @@
 # Theatrix (in development)
-Easily create interactive sites with keyboard, mouse and touch support.  
+Easily create interactive sites with keyboard, mouse and touch support.
 
 
 ## Requirements
 Theatrix requires [jQuery](https://jquery.com/) (2.1.4 minimum).
 
-Theatrix is bundled together with [Fastclick](https://github.com/ftlabs/fastclick) and [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin).  
+Theatrix is bundled together with [Fastclick](https://github.com/ftlabs/fastclick) and [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin).
 
 
 ## Animation directions
-.start / .up / .down / .left / .right / .link / .esc / .enter  
+.start / .up / .down / .left / .right / .link / .esc / .enter
 
 
 ## Creating navigation
@@ -22,6 +22,8 @@ Theatrix works by looking through the navigation and looking for data-tags linki
 ```
 
 #### data-tags
+Data-tags are how you tell Theatrix what to do on certain inputs. Most of the tags are used in the navigation. But some can also be used outside of the navigation.
+
 ```
 data-link="" // click link to a scene (can be used outside of navigation as well)
 data-direction="" // overwrites data-link's default data-direction (can be used outside of navigation as well)
@@ -33,7 +35,7 @@ data-esc="" // link to a scene on escape key (keyboard only)
 data-enter="" // link to a scene on enter key (keyboard only)
 data-callbackin="" // call a js function on in
 data-callbackout="" // call a js function on out
-```  
+```
 
 
 ## Example of generated body-tag
@@ -50,34 +52,45 @@ body.scene1-out.scene2-in.down .scene {  }
 body[data-in="scene2"][data-direction="down"] .scene {  }
 body[data-in="scene2"].down .scene {  }
 body.scene2-in.down .scene {  }
-```  
+```
 
 
 ## Setup customization
-```
-Theatrix.setup({
-	defaultTime: 1000, // lock time between scenes in milliseconds
-	navigation: 'navigation', // id of navigation / defaults to "navigation"
-	urlEnabled: true,  // turns url hashing on/off
-	parallaxEnabled: true, // turns parallax functionality on/off
-	keyboardEnabled: true, // turns keyboard keys on/off
-	scrollEnabled: true, // turns scroll on/off
-	swipeEnabled: true, // turn touch swipe on/off
-	reverseSwipe: false, // reverses swipe directions
-	fastClickEnabled: true, // turns fastClick script on/off
-	bodyClassEnabled: true, // turns body classes on/off
-	bodyDataEnabled: true, // turns body data-tags on/off
-});
-```
+Theatrix can be customized by changing the settings in the setup function (`Theatrix.setup({})`) before initializing.
+Below is a list of settings that can be changed via the setup function.
 
-#### `defaultTime = 1000`
-Choose the default number of milliseconds that the scenes are locked when changing.  
-Default is `defaultTime: 1000`.
+#### `defaultTime: 1000`
+Choose the default number of milliseconds that the scenes are locked when changing scene.
 
-#### navigation = 'navigation'
-Choose the navigation id that is used for the navigation for the input.  
-Default is `navigation: 'navigation'`.  
+#### `navigation: 'navigation'`
+Choose the id of the navigation that is used for navigating the scenes.
 
+#### `urlEnabled: true`
+Turn url hashing on or off.
+
+#### `parallaxEnabled: true`
+Turn parallax functionality on or off.
+
+#### `keyboardEnabled: true`
+Turn keyboard keys on or off.
+
+#### `scrollEnabled: true`
+Turn scrolling on or off.
+
+#### `swipeEnabled: true`
+Turn touch swiping on or off.
+
+#### `reverseSwipe: false`
+Choose if touch swiping should be reversed.
+
+#### `fastclickEnabled: true`
+Turn the Fastclick support on or off.
+
+#### `bodyClassEnalbed: true`
+Turn body classes on or off.
+
+#### `bodyDataEnabled: true`
+Turn body data-tags on or off.
 
 ## Initialization
 ```
