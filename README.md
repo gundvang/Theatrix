@@ -7,10 +7,10 @@ Theatrix requires [jQuery](https://jquery.com/) (2.1.4 minimum).
 Theatrix is bundled together with [Fastclick](https://github.com/ftlabs/fastclick) and [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin).
 
 ## Animation directions
-.start / .up / .down / .left / .right / .link / .esc
+.start / .up / .down / .left / .right / .link / .esc / .enter
 
 ## Creating navigation
-Threatix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
+Theatrix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
 ```
 <ul id="navigation">
 	<li id="scene1" data-down="scene2" data-link="scene1" data-callbackin="function">Scene 1</li>
@@ -37,7 +37,7 @@ data-callbackout="" // call a js function on out
 <body class="scene1 scene1-out scene2 scene2-in down" data-in="scene2" data-out="scene1" data-direction="down">
 ```
 
-## Targeting interativity via css
+## Targeting interactivity via css
 To create animations on specific scenes and/or specific directions. You can target these in many ways. Below are shown a few examples:
 ```
 body[data-out="scene1"][data-in="scene2"][data-direction="down"] .scene {  }
@@ -53,10 +53,11 @@ body.scene2-in.down .scene {  }
 Theatrix.setup([
 	'defaultTime' => '1000', // lock time between scenes in milliseconds
 	'navigation' => 'navigation', // id of navigation / defaults to "navigation"
-	'swipeEnabled' => true, // turn touch swipe on/off
-	'parallax' => true, // turns parallax functionality on/off
-	'keysEnabled' => true, // turns arrow keys on/off
+	'urlEnabled' => true,  // turns url hashing on/off
+	'parallaxEnabled' => true, // turns parallax functionality on/off
+	'keyboardEnabled' => true, // turns keyboard keys on/off
 	'scrollEnabled' => true, // turns scroll on/off
+	'swipeEnabled' => true, // turn touch swipe on/off
 	'reverseSwipe' => false, // reverses swipe directions
 ]);
 ```

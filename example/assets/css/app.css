@@ -347,14 +347,14 @@ body {
   font-family: Verdana, sans-serif;
   overflow: hidden; }
 
-ul#pagination {
+ul#navigation {
   position: fixed;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
   list-style: none; }
 
-ul#pagination li {
+ul#navigation li {
   position: relative;
   display: none;
   width: 30px;
@@ -365,13 +365,13 @@ ul#pagination li {
   cursor: pointer;
   transition: 100ms background-color ease-in-out; }
 
-ul#pagination li[data-link] {
+ul#navigation li[data-link] {
   display: block; }
 
-ul#pagination li.active {
+ul#navigation li.active {
   background-color: #af2222; }
 
-ul#pagination li:after {
+ul#navigation li:after {
   content: attr(data-title);
   position: absolute;
   top: 0;
@@ -386,7 +386,7 @@ ul#pagination li:after {
   pointer-events: none;
   transition: 200ms all ease-in-out; }
 
-ul#pagination li:hover:after {
+ul#navigation li:hover:after {
   opacity: 1; }
 
 .scene {
@@ -421,14 +421,14 @@ ul#pagination li:hover:after {
 .scene4 {
   margin-top: 120px; }
 
-body[data-active="scene1"] .scene1,
-body[data-active="scene01"] .scene01,
-body[data-active="scene11"] .scene11,
-body[data-active="scene2"] .scene2,
-body[data-active="scene02"] .scene02,
-body[data-active="scene12"] .scene12,
-body[data-active="scene3"] .scene3,
-body[data-active="scene4"] .scene4 {
+body.scene1-in .scene.scene1,
+body.scene01-in .scene.scene01,
+body.scene11-in .scene.scene11,
+body.scene2-in .scene.scene2,
+body.scene02-in .scene.scene02,
+body.scene12-in .scene.scene12,
+body.scene3-in .scene.scene3,
+body.scene4-in .scene.scene4 {
   background-color: #af2222; }
 
 .illustration.teams {
@@ -469,34 +469,34 @@ body.scene02 .illustration.teams,
 body.scene4 .illustration.teams {
   display: inline-block; }
 
-body[data-active="scene2"] .illustration.teams,
-body[data-active="scene02"] .illustration.teams,
-body[data-active="scene4"] .illustration.teams {
+body.scene2-in .illustration.teams,
+body.scene02-in .illustration.teams,
+body.scene4-in .illustration.teams {
   animation: fadeIn 250ms linear;
   animation-fill-mode: both; }
 
-body[data-active="scene2"].down .illustration.teams,
-body[data-active="scene02"].down .illustration.teams,
-body[data-active="scene4"].down .illustration.teams {
+body.scene2-in.down .illustration.teams,
+body.scene02-in.down .illustration.teams,
+body.scene4-in.down .illustration.teams {
   animation-name: fromDown; }
 
-body[data-active="scene2"].up .illustration.teams,
-body[data-active="scene02"].up .illustration.teams,
-body[data-active="scene4"].up .illustration.teams {
+body.scene2-in.up .illustration.teams,
+body.scene02-in.up .illustration.teams,
+body.scene4-in.up .illustration.teams {
   animation-name: fromUp; }
 
-body[data-active="scene2"].left .illustration.teams,
-body[data-active="scene02"].left .illustration.teams,
-body[data-active="scene4"].left .illustration.teams {
+body.scene2-in.left .illustration.teams,
+body.scene02-in.left .illustration.teams,
+body.scene4-in.left .illustration.teams {
   animation-name: fromLeft; }
 
-body[data-active="scene2"].right .illustration.teams,
-body[data-active="scene02"].right .illustration.teams,
-body[data-active="scene4"].right .illustration.teams {
+body.scene2-in.right .illustration.teams,
+body.scene02-in.right .illustration.teams,
+body.scene4-in.right .illustration.teams {
   animation-name: fromRight; }
 
-body[data-active="scene02"][data-direction="left"] .illustration.teams,
-body[data-active="scene2"][data-direction="right"] .illustration.teams {
+body.scene02-in.left .illustration.teams,
+body.scene2-in.right .illustration.teams {
   animation-name: none; }
 
 .text {
@@ -519,13 +519,13 @@ body.scene3 .scene3-title,
 body.scene4 .scene4-title {
   display: inline-block; }
 
-body[data-active="scene1"] .scene1-title,
-body[data-active="scene01"] .scene01-title,
-body[data-active="scene11"] .scene11-title,
-body[data-active="scene2"] .scene2-title,
-body[data-active="scene02"] .scene02-title,
-body[data-active="scene12"] .scene12-title,
-body[data-active="scene3"] .scene3-title,
-body[data-active="scene4"] .scene4-title {
+body.scene1-in .scene1-title,
+body.scene01-in .scene01-title,
+body.scene11-in .scene11-title,
+body.scene2-in .scene2-title,
+body.scene02-in .scene02-title,
+body.scene12-in .scene12-title,
+body.scene3-in .scene3-title,
+body.scene4-in .scene4-title {
   animation: fadeIn 250ms linear 250ms;
   animation-fill-mode: both; }

@@ -3,15 +3,15 @@ $('body').on('keydown', function(event) {
 });
 $('[data-link]').on('click', function(event) {
 	if ($(this).data('link') && $( '#'+$(this).data('link') ).length) {
-		Theatrix.direction = 'link';
-		Theatrix.from = Theatrix.active;
-		Theatrix.active = $(this).data('link');
+		Theatrix.data.direction = 'link';
+		Theatrix.data.out = Theatrix.data.in;
+		Theatrix.data.in = $(this).data('link');
 		Theatrix.change();
 	}
 });
 
 Theatrix.setup({
-//  	navigation: 'pagination',
+  	navigation: 'navigation',
 });
 
 Theatrix.init();
