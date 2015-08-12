@@ -48,22 +48,32 @@ body[data-in="scene2"].down .scene {  }
 body.scene2-in.down .scene {  }
 ```
 
+
 ## Setup customization
 ```
-Theatrix.setup([
-	'defaultTime' => '1000', // lock time between scenes in milliseconds
-	'navigation' => 'navigation', // id of navigation / defaults to "navigation"
-	'urlEnabled' => true,  // turns url hashing on/off
-	'parallaxEnabled' => true, // turns parallax functionality on/off
-	'keyboardEnabled' => true, // turns keyboard keys on/off
-	'scrollEnabled' => true, // turns scroll on/off
-	'swipeEnabled' => true, // turn touch swipe on/off
-	'reverseSwipe' => false, // reverses swipe directions
-	'fastClickEnabled' => true, // turns fastClick script on/off
-	'bodyClassEnabled' => true, // turns body classes on/off
-	'bodyDataEnabled' => true, // turns body data-tags on/off
-]);
+Theatrix.setup({
+	defaultTime: 1000, // lock time between scenes in milliseconds
+	navigation: 'navigation', // id of navigation / defaults to "navigation"
+	urlEnabled: true,  // turns url hashing on/off
+	parallaxEnabled: true, // turns parallax functionality on/off
+	keyboardEnabled: true, // turns keyboard keys on/off
+	scrollEnabled: true, // turns scroll on/off
+	swipeEnabled: true, // turn touch swipe on/off
+	reverseSwipe: false, // reverses swipe directions
+	fastClickEnabled: true, // turns fastClick script on/off
+	bodyClassEnabled: true, // turns body classes on/off
+	bodyDataEnabled: true, // turns body data-tags on/off
+});
 ```
+
+#### defaultTime = 1000
+Choose the default number of milliseconds that the scenes are locked when changing.
+Default is `defaultTime: 1000`.
+
+#### navigation = 'navigation'
+Choose the navigation id that is used for the navigation for the input.
+Default is `navigation: 'navigation'`.
+
 
 ## Initialization
 ```
