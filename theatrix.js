@@ -17,6 +17,7 @@ var Theatrix = {
 	fastClickEnabled: true,
 	bodyClassEnabled: true,
 	bodyDataEnabled: true,
+	scrollHorizontal: false,
 	data: {
 		direction: 'start',
 		in: '',
@@ -56,7 +57,7 @@ Theatrix.init = function() {
 	$('body').removeData('in out direction');
 	$('#'+Theatrix.navigation+' li').removeClass('active');
 	$('#'+Theatrix.navigation+' li:first-of-type').addClass('active');
-	Theatrix.data.in = $('.active').attr('id');
+	Theatrix.data.in = $('#'+Theatrix.navigation+' li.active').attr('id');
 	Theatrix.change();
 }
 
@@ -100,27 +101,29 @@ Theatrix.change = function(direction, active, from) {
 Theatrix.checkKey = function(e) {
 	Theatrix.data.direction = '';
 	
-	if (e.keyCode == 38 && $('.active').data('up') && $( '#'+$('.active').data('up') ).length) {
+	if (e.keyCode == 38 && $('#'+Theatrix.navigation+' li.active').data('up') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('up') ).length) {
 		Theatrix.data.direction = 'up';
-	} else if (e.keyCode == 39 && $('.active').data('right') && $( '#'+$('.active').data('right') ).length) {
+	} else if (e.keyCode == 39 && $('#'+Theatrix.navigation+' li.active').data('right') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('right') ).length) {
 		Theatrix.data.direction = 'right';
-	} else if (e.keyCode == 40 && $('.active').data('down') && $( '#'+$('.active').data('down') ).length) {
+	} else if (e.keyCode == 40 && $('#'+Theatrix.navigation+' li.active').data('down') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('down') ).length) {
 		Theatrix.data.direction = 'down';
-	} else if (e.keyCode == 37 && $('.active').data('left') && $( '#'+$('.active').data('left') ).length) {
+	} else if (e.keyCode == 37 && $('#'+Theatrix.navigation+' li.active').data('left') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('left') ).length) {
 		Theatrix.data.direction = 'left';
-	} else if (e.keyCode == 27 && $('.active').data('esc') && $( '#'+$('.active').data('esc') ).length) {
+	} else if (e.keyCode == 27 && $('#'+Theatrix.navigation+' li.active').data('esc') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('esc') ).length) {
 		Theatrix.data.direction = 'esc';
-	} else if (e.keyCode == 13 && $('.active').data('enter') && $( '#'+$('.active').data('enter') ).length) {
+	} else if (e.keyCode == 13 && $('#'+Theatrix.navigation+' li.active').data('enter') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('enter') ).length) {
 		Theatrix.data.direction = 'enter';
 	}
 	
 	if (Theatrix.data.direction) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('.active').data( Theatrix.data.direction );
+		Theatrix.data.in = $('#'+Theatrix.navigation+' li.active').data( Theatrix.data.direction );
 		Theatrix.change();
 	}
 }
-
+if (Theatrix.keyboardEnabled) {
+	$('body').on('keydown', Theatrix.checkKey);
+}
 
 /* 
  | ----------------------------------------
@@ -128,17 +131,41 @@ Theatrix.checkKey = function(e) {
  | ----------------------------------------
  */
 Theatrix.checkScroll = function(e) {
-	Theatrix.data.direction = '';
-	
-	if (event.deltaY > 0 && $('.active').data('up') && $( '#'+$('.active').data('up') ).length) {
-		Theatrix.data.direction = 'up';
-	} else if (event.deltaY < 0 && $('.active').data('right') && $( '#'+$('.active').data('right') ).length) {
-		Theatrix.data.direction = 'down';
+	if (!$('#'+Theatrix.navigation+' li.active') || !Theatrix.scrollEnabled) {
+		return;
 	}
+	var xy = e.originalEvent.wheelDelta || -e.originalEvent.detail,
+		x = e.originalEvent.wheelDeltaX || (e.originalEvent.axis == 1 ? xy : 0),
+		y = e.originalEvent.wheelDeltaY || (e.originalEvent.axis == 2 ? xy : 0);
 	
-	if (Theatrix.data.direction) {
+	// IE11 Fix
+	if(x === 0 && y === 0 && xy !== 0) { y = xy; }
+	
+	if(Theatrix.scrollHorizontal) {
+		x = y; 
+		y = 0;
+	}
+
+	if(Math.abs(x) > Math.abs(y)) {
+		if (x > 0) { 
+			Theatrix.data.direction = 'left';
+		} else { 
+			Theatrix.data.direction = 'right';
+		}
+	} else {
+		if (y > 0) { 
+			Theatrix.data.direction = 'up';
+		} else { 
+			Theatrix.data.direction = 'down';
+		}
+	}
+	if ($('#'+Theatrix.navigation+' li.active').data(Theatrix.data.direction)) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('.active').data( Theatrix.data.direction );
+		Theatrix.data.in = $('#'+Theatrix.navigation+' li.active').data( Theatrix.data.direction );
 		Theatrix.change();
 	}
+	return false;
+}
+if (Theatrix.scrollEnabled) {
+	$(document).on('mousewheel DOMMouseScroll', Theatrix.checkScroll);
 }

@@ -1,6 +1,3 @@
-$('body').on('keydown', function(event) {
-	Theatrix.checkKey(event);
-});
 $('[data-link]').on('click', function(event) {
 	if ($(this).data('link') && $( '#'+$(this).data('link') ).length) {
 		Theatrix.data.direction = 'link';
