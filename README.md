@@ -16,26 +16,47 @@ Theatrix is bundled together with [Fastclick](https://github.com/ftlabs/fastclic
 Theatrix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
 ```
 <ul id="navigation">
-	<li id="scene1" data-down="scene2" data-link="scene1" data-callbackin="function">Scene 1</li>
-	<li id="scene2" data-up="scene1" data-link="scene2,1000" data-callbackout="function">Scene 2</li>
+	<li id="scene1" data-down="scene2" data-link="scene1">Scene 1</li>
+	<li id="scene2" data-up="scene1" data-down="scene3" data-link="scene2">Scene 2</li>
+	<li id="scene2" data-up="scene2" data-link="scene3">Scene 3</li>
 </ul>
 ```
 
 #### data-tags
 Data-tags are how you tell Theatrix what to do on certain inputs. Most of the tags are used in the navigation. But some can also be used outside of the navigation.
 
-```
-data-link="" // click link to a scene (can be used outside of navigation as well)
-data-direction="" // overwrites data-link's default data-direction (can be used outside of navigation as well)
-data-up="" // link to a scene on up arrow / up scroll / down swipe
-data-down="" // link to a scene on down arrow / down scroll / up swipe
-data-left="" // link to a scene on left arrow / right swipe
-data-right="" // link to a scene on right arrow / left swipe
-data-esc="" // link to a scene on escape key (keyboard only)
-data-enter="" // link to a scene on enter key (keyboard only)
-data-callbackin="" // call a js function on in
-data-callbackout="" // call a js function on out
-```
+#### `data-link=""`
+Click link to a scene (can be used outside of navigation as well).
+
+#### `data-direction=""`
+Overwrites data-link's default data-direction (can be used outside of navigation as well).
+
+#### `data-up=""`
+Link to a scene on up arrow / up scroll / down swipe.
+
+#### `data-down=""`
+Link to a scene on down arrow / down scroll / up swipe.
+
+#### `data-left=""`
+Link to a scene on left arrow / right swipe.
+
+#### `data-right=""`
+Link to a scene on right arrow / left swipe.
+
+#### `data-esc=""`
+Link to a scene on escape key (keyboard only).
+
+#### `data-enter=""`
+Link to a scene on enter key (keyboard only).
+
+#### `data-callback-in=""`
+Call a js function on in.
+
+##### `data-callback-out"=""`
+Call a js function on out.
+
+###### `data-trigger=""`
+Triggers another call on the active scene (used outside of navigation).
 
 
 ## Example of generated body-tag
@@ -43,12 +64,14 @@ data-callbackout="" // call a js function on out
 <body class="scene1 scene1-out scene2 scene2-in down" data-in="scene2" data-out="scene1" data-direction="down">
 ```  
 
-## Targeting interactivity via css
+### Targeting interactivity via css
 To create animations on specific scenes and/or specific directions. You can target these in many ways. Below are shown a few examples:
 ```
 body[data-out="scene1"][data-in="scene2"][data-direction="down"] .scene {  }
 body[data-out="scene1"][data-in="scene2"].down .scene {  }
 body.scene1-out.scene2-in.down .scene {  }
+```
+```
 body[data-in="scene2"][data-direction="down"] .scene {  }
 body[data-in="scene2"].down .scene {  }
 body.scene2-in.down .scene {  }
