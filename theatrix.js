@@ -1,7 +1,11 @@
 /* 
- | ----------------------------------------
- | create object
- | ----------------------------------------
+ | ------------------------------------------------------------
+ | Create Theatrix object
+ | ------------------------------------------------------------
+ | This variable is the Theatrix object. Which is 
+ | used for setting the default values of the 
+ | settings, and attaching function.
+ | 
  */
 var Theatrix = {
 	version: '0.2',
@@ -26,9 +30,13 @@ var Theatrix = {
 };
 
 /* 
- | ----------------------------------------
- | setup
- | ----------------------------------------
+ | ------------------------------------------------------------
+ | Setup Theatrix
+ | ------------------------------------------------------------
+ | This function is used to overwrite the default 
+ | values of the Theatrix object. If any are 
+ | ammitted to the setup function.
+ |
  */
 Theatrix.setup = function(e) { 
 	if (typeof(e.navigation) != 'undefined') { Theatrix.navigation = e.navigation; }
@@ -44,9 +52,13 @@ Theatrix.setup = function(e) {
 }
 
 /* 
- | ----------------------------------------
- | initialize
- | ----------------------------------------
+ | ------------------------------------------------------------
+ | Initialize Theatrix
+ | ------------------------------------------------------------
+ | This function initializes Theatrix and sets the 
+ | required tags/classes on the body. Plus activates 
+ | the first element of the navigation.
+ | 
  */
 Theatrix.init = function() { 
 	if (Theatrix.fastClickEnabled) { FastClick.attach(document.body); }
@@ -62,9 +74,13 @@ Theatrix.init = function() {
 }
 
 /* 
- | ----------------------------------------
- | change body tags
- | ----------------------------------------
+ | ------------------------------------------------------------
+ | Change body classes and/or data-tags
+ | ------------------------------------------------------------
+ | This function is called when changing scene. It defaults 
+ | to the values set in the Theatrix.data object. But the 
+ | values can also be passed if a manual call is wanted.
+ |
  */
 Theatrix.change = function(direction, active, from) {
 	if (active) { Theatrix.data.in = active; }
@@ -94,11 +110,15 @@ Theatrix.change = function(direction, active, from) {
 }
 
 /* 
- | ----------------------------------------
- | check for keypress interaction
- | ----------------------------------------
+ | ------------------------------------------------------------
+ | Check for keypress interaction
+ | ------------------------------------------------------------
+ | This function is called on keydown and checks which 
+ | key has been pressed. And then acts accordingly.
+ |
  */
 Theatrix.checkKey = function(e) {
+	if (!Theatrix.keyboardEnabled) { return; }
 	Theatrix.data.direction = '';
 	
 	if (e.keyCode == 38 && $('#'+Theatrix.navigation+' li.active').data('up') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('up') ).length) {
@@ -126,27 +146,30 @@ if (Theatrix.keyboardEnabled) {
 }
 
 /* 
- | ----------------------------------------
- | check for scroll interaction
- | ----------------------------------------
+ | ------------------------------------------------------------
+ | Check for scroll interaction
+ | ------------------------------------------------------------
+ | This function is called on mousewheel/touchpad 
+ | scroll and checks in which direction is scrolled. 
+ | And then acs accordingly.
+ | 
  */
 Theatrix.checkScroll = function(e) {
-	if (!$('#'+Theatrix.navigation+' li.active') || !Theatrix.scrollEnabled) {
-		return;
-	}
+	if (!Theatrix.scrollEnabled) { return; }
+
 	var xy = e.originalEvent.wheelDelta || -e.originalEvent.detail,
 		x = e.originalEvent.wheelDeltaX || (e.originalEvent.axis == 1 ? xy : 0),
 		y = e.originalEvent.wheelDeltaY || (e.originalEvent.axis == 2 ? xy : 0);
 	
 	// IE11 Fix
-	if(x === 0 && y === 0 && xy !== 0) { y = xy; }
+	if (x === 0 && y === 0 && xy !== 0) { y = xy; }
 	
-	if(Theatrix.scrollHorizontal) {
+	if (Theatrix.scrollHorizontal) {
 		x = y; 
 		y = 0;
 	}
 
-	if(Math.abs(x) > Math.abs(y)) {
+	if (Math.abs(x) > Math.abs(y)) {
 		if (x > 0) { 
 			Theatrix.data.direction = 'left';
 		} else { 
