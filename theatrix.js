@@ -8,25 +8,33 @@
  | 
  */
 var Theatrix = {
-	version: '0.2',
-	documentation: 'https://github.com/gundvang/theatrix',
-	defaultTime: 1000,
-	navigation: 'navigation',
-	urlEnabled: true,
-	parallaxEnabled: true,
-	keyboardEnabled: true,
-	scrollEnabled: true,
-	swipeEnabled: true,
-	reverseSwipe: false,
-	fastClickEnabled: true,
-	bodyClassEnabled: true,
-	bodyDataEnabled: true,
-	scrollHorizontal: false,
+	info: {
+		version: '0.2',
+		documentation: 'https://github.com/gundvang/theatrix',
+	},
+	scroll: {
+		lock: 50,
+	},
 	data: {
 		direction: 'start',
 		in: '',
 		out: '',
 	},
+	settings: {
+		defaultLock: 500,
+		navigation: 'navigation',
+		urlEnabled: true,
+		parallaxEnabled: true,
+		clickEnabled: true,
+		keyboardEnabled: true,
+		scrollEnabled: true,
+		swipeEnabled: true,
+		reverseSwipe: false,
+		fastClickEnabled: true,
+		bodyClassEnabled: true,
+		bodyDataEnabled: true,
+		scrollHorizontal: false,
+	}
 };
 
 /* 
@@ -39,16 +47,17 @@ var Theatrix = {
  |
  */
 Theatrix.setup = function(e) { 
-	if (typeof(e.navigation) != 'undefined') { Theatrix.navigation = e.navigation; }
-	if (typeof(e.urlEnabled) != 'undefined') { Theatrix.urlEnabled = e.urlEnabled; }
-	if (typeof(e.parallaxEnabled) != 'undefined') { Theatrix.parallaxEnabled = e.parallaxEnabled; }
-	if (typeof(e.keyboardEnabled) != 'undefined') { Theatrix.keyboardEnabled = e.keyboardEnabled; }
-	if (typeof(e.scrollEnabled) != 'undefined') { Theatrix.scrollEnabled = e.scrollEnabled; }
-	if (typeof(e.swipeEnabled) != 'undefined') { Theatrix.swipeEnabled = e.swipeEnabled; }
-	if (typeof(e.reverseSwipe) != 'undefined') { Theatrix.reverseSwipe = e.reverseSwipe; }
-	if (typeof(e.fastClickEnabled) != 'undefined') { Theatrix.fastClickEnabled = e.fastClickEnabled; }
-	if (typeof(e.bodyClassEnabled) != 'undefined') { Theatrix.bodyClassEnabled = e.bodyClassEnabled; }
-	if (typeof(e.bodyDataEnabled) != 'undefined') { Theatrix.bodyDataEnabled = e.bodyDataEnabled; }
+	if (typeof(e.navigation) != 'undefined') { Theatrix.settings.navigation = e.navigation; }
+	if (typeof(e.urlEnabled) != 'undefined') { Theatrix.settings.urlEnabled = e.urlEnabled; }
+	if (typeof(e.parallaxEnabled) != 'undefined') { Theatrix.settings.parallaxEnabled = e.parallaxEnabled; }
+	if (typeof(e.keyboardEnabled) != 'undefined') { Theatrix.settings.keyboardEnabled = e.keyboardEnabled; }
+	if (typeof(e.scrollEnabled) != 'undefined') { Theatrix.settings.scrollEnabled = e.scrollEnabled; }
+	if (typeof(e.swipeEnabled) != 'undefined') { Theatrix.settings.swipeEnabled = e.swipeEnabled; }
+	if (typeof(e.reverseSwipe) != 'undefined') { Theatrix.settings.reverseSwipe = e.reverseSwipe; }
+	if (typeof(e.fastClickEnabled) != 'undefined') { Theatrix.settings.fastClickEnabled = e.fastClickEnabled; }
+	if (typeof(e.bodyClassEnabled) != 'undefined') { Theatrix.settings.bodyClassEnabled = e.bodyClassEnabled; }
+	if (typeof(e.bodyDataEnabled) != 'undefined') { Theatrix.settings.bodyDataEnabled = e.bodyDataEnabled; }
+	if (typeof(e.scrollHorizontal) != 'undefined') { Theatrix.settings.scrollHorizontal = e.scrollHorizontal; }
 }
 
 /* 
@@ -61,15 +70,15 @@ Theatrix.setup = function(e) {
  | 
  */
 Theatrix.init = function() { 
-	if (Theatrix.fastClickEnabled) { FastClick.attach(document.body); }
+	if (Theatrix.settings.fastClickEnabled) { FastClick.attach(document.body); }
 
 	Theatrix.data.direction = 'start';
 	Theatrix.data.out = '';
 	
 	$('body').removeData('in out direction');
-	$('#'+Theatrix.navigation+' li').removeClass('active');
-	$('#'+Theatrix.navigation+' li:first-of-type').addClass('active');
-	Theatrix.data.in = $('#'+Theatrix.navigation+' li.active').attr('id');
+	$('#'+Theatrix.settings.navigation+' li').removeClass('active');
+	$('#'+Theatrix.settings.navigation+' li:first-of-type').addClass('active');
+	Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').attr('id');
 	Theatrix.change();
 }
 
@@ -82,15 +91,15 @@ Theatrix.init = function() {
  | values can also be passed if a manual call is wanted.
  |
  */
-Theatrix.change = function(direction, active, from) {
+Theatrix.change = function(direction, active, from, lock) {
 	if (active) { Theatrix.data.in = active; }
 	if (from) { Theatrix.data.out = from; }
 	if (direction) { Theatrix.data.direction = direction; }
 	
-	$('#'+Theatrix.navigation+' li').removeClass('active');
+	$('#'+Theatrix.settings.navigation+' li').removeClass('active');
 	$('#'+Theatrix.data.in).addClass('active');
 
-	if (Theatrix.bodyClassEnabled) {
+	if (Theatrix.settings.bodyClassEnabled) {
 		$('body').removeClass();
 		if (Theatrix.data.out) {
 			$('body').addClass(Theatrix.data.out+' '+Theatrix.data.out+'-out');
@@ -100,48 +109,81 @@ Theatrix.change = function(direction, active, from) {
 		}
 		$('body').addClass(Theatrix.data.direction);
 	}
-	if (Theatrix.bodyDataEnabled) {
+	if (Theatrix.settings.bodyDataEnabled) {
 		if ( Theatrix.data.direction != 'start' ) {
 			$('body').attr('data-out', Theatrix.data.out);
 		}
 		$('body').attr('data-in', Theatrix.data.in);
 		$('body').attr('data-direction', Theatrix.data.direction);
 	}
+	if (lock) {
+		Theatrix.lockTimer = lock;
+	} else if (!Theatrix.lockTimer) {
+		Theatrix.lockTimer = Theatrix.defaultLock;
+	}
+
+	if (Theatrix.settings.clickEnabled) {
+		Theatrix.settings.clickEnabled = false;
+		setTimeout(function() {
+			Theatrix.settings.clickEnabled = true;
+		}, Theatrix.lockTimer);
+	}
+	if (Theatrix.settings.scrollEnabled) {
+		Theatrix.settings.scrollEnabled = false;
+		setTimeout(function() {
+			Theatrix.settings.scrollEnabled = true;
+		}, Theatrix.lockTimer);
+	}
+	if (Theatrix.settings.keyboardEnabled) {
+		Theatrix.settings.keyboardEnabled = false;
+		setTimeout(function() {
+			Theatrix.settings.keyboardEnabled = true;
+		}, Theatrix.lockTimer);
+	}
+	if (Theatrix.settings.swipeEnabled) {
+		Theatrix.settings.swipeEnabled = false;
+		setTimeout(function() {
+			Theatrix.settings.swipeEnabled = true;
+		}, Theatrix.lockTimer);
+	}
+	console.log(Theatrix.lockTimer);
+	Theatrix.lockTimer = '';
 }
 
 /* 
  | ------------------------------------------------------------
  | Check for keypress interaction
  | ------------------------------------------------------------
- | This function is called on keydown and checks which 
- | key has been pressed. And then acts accordingly.
+ | This function is called on keydown and checks 
+ | which key has been pressed. And then acts as 
+ | defined by the navigation.
  |
  */
 Theatrix.checkKey = function(e) {
-	if (!Theatrix.keyboardEnabled) { return; }
+	if (!Theatrix.settings.keyboardEnabled) { return; }
 	Theatrix.data.direction = '';
 	
-	if (e.keyCode == 38 && $('#'+Theatrix.navigation+' li.active').data('up') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('up') ).length) {
+	if (e.keyCode == 38 && $('#'+Theatrix.settings.navigation+' li.active').data('up') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('up') ).length) {
 		Theatrix.data.direction = 'up';
-	} else if (e.keyCode == 39 && $('#'+Theatrix.navigation+' li.active').data('right') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('right') ).length) {
+	} else if (e.keyCode == 39 && $('#'+Theatrix.settings.navigation+' li.active').data('right') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('right') ).length) {
 		Theatrix.data.direction = 'right';
-	} else if (e.keyCode == 40 && $('#'+Theatrix.navigation+' li.active').data('down') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('down') ).length) {
+	} else if (e.keyCode == 40 && $('#'+Theatrix.settings.navigation+' li.active').data('down') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('down') ).length) {
 		Theatrix.data.direction = 'down';
-	} else if (e.keyCode == 37 && $('#'+Theatrix.navigation+' li.active').data('left') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('left') ).length) {
+	} else if (e.keyCode == 37 && $('#'+Theatrix.settings.navigation+' li.active').data('left') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('left') ).length) {
 		Theatrix.data.direction = 'left';
-	} else if (e.keyCode == 27 && $('#'+Theatrix.navigation+' li.active').data('esc') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('esc') ).length) {
+	} else if (e.keyCode == 27 && $('#'+Theatrix.settings.navigation+' li.active').data('esc') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('esc') ).length) {
 		Theatrix.data.direction = 'esc';
-	} else if (e.keyCode == 13 && $('#'+Theatrix.navigation+' li.active').data('enter') && $( '#'+$('#'+Theatrix.navigation+' li.active').data('enter') ).length) {
+	} else if (e.keyCode == 13 && $('#'+Theatrix.settings.navigation+' li.active').data('enter') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('enter') ).length) {
 		Theatrix.data.direction = 'enter';
 	}
 	
 	if (Theatrix.data.direction) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('#'+Theatrix.navigation+' li.active').data( Theatrix.data.direction );
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data( Theatrix.data.direction );
 		Theatrix.change();
 	}
 }
-if (Theatrix.keyboardEnabled) {
+if (Theatrix.settings.keyboardEnabled) {
 	$('body').on('keydown', Theatrix.checkKey);
 }
 
@@ -151,11 +193,18 @@ if (Theatrix.keyboardEnabled) {
  | ------------------------------------------------------------
  | This function is called on mousewheel/touchpad 
  | scroll and checks in which direction is scrolled. 
- | And then acs accordingly.
+ | And then acts as defined by the navigation.
  | 
  */
 Theatrix.checkScroll = function(e) {
-	if (!Theatrix.scrollEnabled) { return; }
+	clearTimeout(Theatrix.scroll.timer);
+	Theatrix.scroll.timer = setTimeout(function() {
+		Theatrix.scroll.active = false;
+	}, Theatrix.scroll.lock);
+
+	if (!Theatrix.settings.scrollEnabled || Theatrix.scroll.active) { return; }
+
+	Theatrix.scroll.active = true;
 
 	var xy = e.originalEvent.wheelDelta || -e.originalEvent.detail,
 		x = e.originalEvent.wheelDeltaX || (e.originalEvent.axis == 1 ? xy : 0),
@@ -164,7 +213,7 @@ Theatrix.checkScroll = function(e) {
 	// IE11 Fix
 	if (x === 0 && y === 0 && xy !== 0) { y = xy; }
 	
-	if (Theatrix.scrollHorizontal) {
+	if (Theatrix.settings.scrollHorizontal) {
 		x = y; 
 		y = 0;
 	}
@@ -182,13 +231,59 @@ Theatrix.checkScroll = function(e) {
 			Theatrix.data.direction = 'down';
 		}
 	}
-	if ($('#'+Theatrix.navigation+' li.active').data(Theatrix.data.direction)) {
+	if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction)) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('#'+Theatrix.navigation+' li.active').data( Theatrix.data.direction );
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data( Theatrix.data.direction );
 		Theatrix.change();
 	}
 	return false;
 }
-if (Theatrix.scrollEnabled) {
+if (Theatrix.settings.scrollEnabled) {
 	$(document).on('mousewheel DOMMouseScroll', Theatrix.checkScroll);
+}
+
+/* 
+ | ------------------------------------------------------------
+ | data-link click
+ | ------------------------------------------------------------
+ | This event is called when an 
+ | element with data-link is clicked.
+ | 
+ */
+if (Theatrix.settings.clickEnabled) {
+	$('[data-link]').on('click', function(event) {
+		if (!Theatrix.clickEnabled) { return; }
+		if ($(this).data('link') && $( '#'+$(this).data('link') ).length) {
+			Theatrix.data.direction = 'link';
+			Theatrix.data.out = Theatrix.data.in;
+			Theatrix.data.in = $(this).data('link').split(',')[0];
+			if ($(this).data('link').split(',')[1]) {
+				Theatrix.lockTimer = $(this).data('link').split(',')[1];			
+			}
+			Theatrix.change();
+		}
+	});
+}
+
+/* 
+ | ------------------------------------------------------------
+ | data-trigger click
+ | ------------------------------------------------------------
+ | This event is called when an element 
+ | with data-trigger is clicked.
+ |
+ */
+if (Theatrix.settings.clickEnabled) {
+	$('[data-trigger]').on('click', function(event) {
+		if (!Theatrix.settings.clickEnabled) { return; }
+		if ($('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger'))) {
+			Theatrix.data.direction = $(this).data('trigger');
+			Theatrix.data.out = Theatrix.data.in;
+			Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger'));
+			if ($(this).data('trigger').split(',')[1]) {
+				Theatrix.lockTimer = $(this).data('trigger').split(',')[1];			
+			}
+			Theatrix.change();
+		}
+	});
 }

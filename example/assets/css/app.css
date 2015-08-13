@@ -865,7 +865,8 @@ ul#navigation li:hover:after {
   box-sizing: border-box; }
 
 .scene01 {
-  margin-left: -40px; }
+  margin-left: -40px;
+  border-bottom: 1px solid #fff; }
 
 .scene11 {
   margin-left: 40px;
@@ -876,7 +877,8 @@ ul#navigation li:hover:after {
 
 .scene02 {
   margin-left: -40px;
-  margin-top: 40px; }
+  margin-top: 40px;
+  border-top: 1px solid #fff; }
 
 .scene.scene12 {
   margin-left: 40px;

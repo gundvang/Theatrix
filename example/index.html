@@ -7,17 +7,17 @@
 	<body>
 		<ul id="navigation">
 			<li id="scene1" data-down="scene2" data-left="scene01" data-right="scene11" data-link="scene1" data-title="Scene1"></li>
-			<li id="scene01" data-right="scene1" data-down="scene02" data-esc="scene1"></li>
+			<li id="scene01" data-right="scene1" data-esc="scene1"></li>
 			<li id="scene11" data-left="scene1" data-esc="scene1"></li>
 			<li id="scene2" data-up="scene1" data-down="scene3" data-left="scene02" data-right="scene12" data-link="scene2" data-title="Scene 2"></li>
-			<li id="scene02" data-right="scene2" data-up="scene01" data-esc="scene2"></li>
+			<li id="scene02" data-right="scene2" data-esc="scene2"></li>
 			<li id="scene12" data-left="scene2" data-esc="scene2"></li>
 			<li id="scene3" data-up="scene2" data-down="scene4" data-link="scene3" data-title="Scene 3"></li>
 			<li id="scene4" data-up="scene3" data-link="scene4" data-title="Scene 4"></li>
 		</ul>
 		
 		<div class="scene scene1" data-link="scene1" data-direction="left"></div>
-		<div class="scene scene2" data-link="scene2"></div>
+		<div class="scene scene2" data-link="scene2,2000"></div>
 		<div class="scene scene3" data-link="scene3"></div>
 		<div class="scene scene4" data-link="scene4"></div>
 		<div class="scene scene01" data-link="scene01"></div>
@@ -25,18 +25,15 @@
 		<div class="scene scene02" data-link="scene02"></div>
 		<div class="scene scene12" data-link="scene12"></div>
 		
-		<div class="illustration cards">
+		<div class="illustration teams">
 			<div class="card-1"></div>
-			<div class="card-2"></div>
-			<div class="card-3"></div>
-			<div class="card-4"></div>
 		</div>
 		
 		<div class="text scene1-title">Scene 1</div>
 		<div class="text scene01-title">Scene 1 - left</div>
 		<div class="text scene11-title">Scene 1 - right</div>
 		<div class="text scene2-title">Scene 2</div>
-		<div class="text scene02-title">Scene 2 - left</div>
+		<div class="text scene02-title" data-trigger="right">Scene 2 - left</div>
 		<div class="text scene12-title">Scene 2 - right</div>
 		<div class="text scene3-title">Scene 3</div>
 		<div class="text scene4-title">Scene 4</div>
@@ -44,7 +41,6 @@
 		<script type="text/javascript" src="vendors/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript" src="vendors/fastclick.min.js"></script>
 		<script type="text/javascript" src="vendors/jquery.touchswipe.min.js"></script>
-		<script type="text/javascript" src="vendors/jquery-mousewheel-master/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="../theatrix.js"></script>
 		<script type="text/javascript" src="assets/js/app.js"></script>
 	</body>
