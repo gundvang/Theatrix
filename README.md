@@ -60,12 +60,15 @@ Triggers another call on the active scene (used outside of navigation).
 
 
 ## Example of generated body-tag
+When initialized. The body-tag will get classes and/or data-tags showing the current scene (in), previous scene (out) and direction.
 ```
 <body class="scene1 scene1-out scene2 scene2-in down" data-in="scene2" data-out="scene1" data-direction="down">
 ```  
 
 ### Targeting interactivity via css
-To create animations on specific scenes and/or specific directions. You can target these in many ways. Below are shown a few examples:
+To create animations on specific scenes and/or specific directions.  
+You can target these in many ways.  
+Below are shown a few examples:
 ```
 body[data-out="scene1"][data-in="scene2"][data-direction="down"] .scene {  }
 body[data-out="scene1"][data-in="scene2"].down .scene {  }
@@ -79,8 +82,8 @@ body.scene2-in.down .scene {  }
 
 
 ## Setup customization
-Theatrix can be customized by changing the settings in the setup function (`Theatrix.setup({})`) before initializing.
-Below is a list of settings that can be changed via the setup function.
+Theatrix can be customized by changing the settings in the setup function (`Theatrix.setup({});`) before initializing.
+Below is a list of settings that can be changed via the setup function:
 
 ##### `defaultTime: 1000`
 Choose the default number of milliseconds that the scenes are locked when changing scene.
