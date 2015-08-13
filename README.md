@@ -22,40 +22,40 @@ Theatrix works by looking through the navigation and looking for data-tags linki
 </ul>
 ```
 
-#### data-tags
+### data-tags
 Data-tags are how you tell Theatrix what to do on certain inputs. Most of the tags are used in the navigation. But some can also be used outside of the navigation.
 
-#### `data-link=""`
+##### `data-link=""`
 Click link to a scene (can be used outside of navigation as well).
 
-#### `data-direction=""`
+##### `data-direction=""`
 Overwrites data-link's default data-direction (can be used outside of navigation as well).
 
-#### `data-up=""`
+##### `data-up=""`
 Link to a scene on up arrow / up scroll / down swipe.
 
-#### `data-down=""`
+##### `data-down=""`
 Link to a scene on down arrow / down scroll / up swipe.
 
-#### `data-left=""`
+##### `data-left=""`
 Link to a scene on left arrow / right swipe.
 
-#### `data-right=""`
+##### `data-right=""`
 Link to a scene on right arrow / left swipe.
 
-#### `data-esc=""`
+##### `data-esc=""`
 Link to a scene on escape key (keyboard only).
 
-#### `data-enter=""`
+##### `data-enter=""`
 Link to a scene on enter key (keyboard only).
 
-#### `data-callback-in=""`
+##### `data-callback-in=""`
 Call a js function on in.
 
 ##### `data-callback-out"=""`
 Call a js function on out.
 
-###### `data-trigger=""`
+##### `data-trigger=""`
 Triggers another call on the active scene (used outside of navigation).
 
 
@@ -82,37 +82,37 @@ body.scene2-in.down .scene {  }
 Theatrix can be customized by changing the settings in the setup function (`Theatrix.setup({})`) before initializing.
 Below is a list of settings that can be changed via the setup function.
 
-#### `defaultTime: 1000`
+##### `defaultTime: 1000`
 Choose the default number of milliseconds that the scenes are locked when changing scene.
 
-#### `navigation: 'navigation'`
+##### `navigation: 'navigation'`
 Choose the id of the navigation that is used for navigating the scenes.
 
-#### `urlEnabled: true`
+##### `urlEnabled: true`
 Turn url hashing on or off.
 
-#### `parallaxEnabled: true`
+##### `parallaxEnabled: true`
 Turn parallax functionality on or off.
 
-#### `keyboardEnabled: true`
+##### `keyboardEnabled: true`
 Turn keyboard keys on or off.
 
-#### `scrollEnabled: true`
+##### `scrollEnabled: true`
 Turn scrolling on or off.
 
-#### `swipeEnabled: true`
+##### `swipeEnabled: true`
 Turn touch swiping on or off.
 
-#### `reverseSwipe: false`
+##### `reverseSwipe: false`
 Choose if touch swiping should be reversed.
 
-#### `fastclickEnabled: true`
+##### `fastclickEnabled: true`
 Turn the Fastclick support on or off.
 
-#### `bodyClassEnalbed: true`
+##### `bodyClassEnalbed: true`
 Turn body classes on or off.
 
-#### `bodyDataEnabled: true`
+##### `bodyDataEnabled: true`
 Turn body data-tags on or off.
 
 ## Initialization
