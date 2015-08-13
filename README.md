@@ -8,10 +8,6 @@ Theatrix requires [jQuery](https://jquery.com/) (2.1.4 minimum).
 Theatrix is bundled together with [Fastclick](https://github.com/ftlabs/fastclick) and [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin).
 
 
-## Animation directions
-.start / .up / .down / .left / .right / .link / .esc / .enter
-
-
 ## Creating navigation
 Theatrix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
 ```
@@ -23,40 +19,53 @@ Theatrix works by looking through the navigation and looking for data-tags linki
 ```
 
 ### data-tags
-Data-tags are how you tell Theatrix what to do on certain inputs. Most of the tags are used in the navigation. But some can also be used outside of the navigation.
+Data-tags are how you tell Theatrix what to do on certain inputs.  
+Most of the tags are used in the navigation.  
+But some can also be used outside of the navigation.
 
 ##### `data-link=""`
-Click link to a scene (can be used outside of navigation as well).
+Link to a scene on click.
+(the value should be the name of an element in the navigation)
 
 ##### `data-direction=""`
-Overwrites data-link's default data-direction (can be used outside of navigation as well).
+Overwrites data-link's default data-direction.
+(possible values: `start`/`up`/`down`/`left`/`right`/`link`/`esc`/`enter`)
 
 ##### `data-up=""`
-Link to a scene on up arrow / up scroll / down swipe.
+Link to a scene on up arrow / up scroll / down swipe. (used inside of navigation)  
+(the value should be the id of an element in the navigation)
 
 ##### `data-down=""`
-Link to a scene on down arrow / down scroll / up swipe.
+Link to a scene on down arrow / down scroll / up swipe. (used inside of navigation)  
+(the value should be the id of an element in the navigation)
 
 ##### `data-left=""`
-Link to a scene on left arrow / right swipe.
+Link to a scene on left arrow / right swipe. (used inside of navigation)  
+(the value should be the id of an element in the navigation)
 
 ##### `data-right=""`
-Link to a scene on right arrow / left swipe.
+Link to a scene on right arrow / left swipe. (used inside of navigation)  
+(the value should be the id of an element in the navigation)
 
 ##### `data-esc=""`
-Link to a scene on escape key (keyboard only).
+Link to a scene on escape key. (used inside of navigation) (keyboard only)  
+(the value should be the id of an element in the navigation)
 
 ##### `data-enter=""`
-Link to a scene on enter key (keyboard only).
+Link to a scene on enter key. (used inside of navigation) (keyboard only)  
+(the value should be the id of an element in the navigation)
 
 ##### `data-callback-in=""`
-Call a js function on in.
+Call a js function when entering scene. (used inside of navigation)  
+(the value should be the name of a custom javascript function)
 
 ##### `data-callback-out"=""`
-Call a js function on out.
+Call a js function on out. (used inside of navigation)  
+(the value should be the name of a custom javascript function)
 
 ##### `data-trigger=""`
-Triggers another call on the active scene (used outside of navigation).
+Triggers another call on the active scene. (used outside of navigation)  
+(possible values: `start`/`up`/`down`/`left`/`right`/`link`/`esc`/`enter`)
 
 
 ## Example of generated body-tag
