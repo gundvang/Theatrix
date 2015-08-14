@@ -9,31 +9,31 @@
  */
 var Theatrix = {
 	info: {
-		version: '0.2',
+		version: '0.3',
 		documentation: 'https://github.com/gundvang/theatrix',
 	},
 	scroll: {
 		lock: 50,
 	},
 	data: {
-		direction: 'start',
+		direction: '',
 		in: '',
 		out: '',
 	},
 	settings: {
 		defaultLock: 200,
 		navigation: 'navigation',
-		urlEnabled: true,
-		parallaxEnabled: true,
+		hashEnabled: true,
+		// parallaxEnabled: true,
 		clickEnabled: true,
 		keyboardEnabled: true,
 		scrollEnabled: true,
 		swipeEnabled: true,
-		reverseSwipe: false,
+		// reverseSwipe: false,
 		fastClickEnabled: true,
 		bodyClassEnabled: true,
 		bodyDataEnabled: true,
-		scrollHorizontal: false,
+		// scrollHorizontal: false,
 	}
 };
 
@@ -48,7 +48,7 @@ var Theatrix = {
  */
 Theatrix.setup = function(e) { 
 	if (typeof(e.navigation) != 'undefined') { Theatrix.settings.navigation = e.navigation; }
-	if (typeof(e.urlEnabled) != 'undefined') { Theatrix.settings.urlEnabled = e.urlEnabled; }
+	if (typeof(e.hashEnabled) != 'undefined') { Theatrix.settings.hashEnabled = e.hashEnabled; }
 	if (typeof(e.parallaxEnabled) != 'undefined') { Theatrix.settings.parallaxEnabled = e.parallaxEnabled; }
 	if (typeof(e.keyboardEnabled) != 'undefined') { Theatrix.settings.keyboardEnabled = e.keyboardEnabled; }
 	if (typeof(e.scrollEnabled) != 'undefined') { Theatrix.settings.scrollEnabled = e.scrollEnabled; }
@@ -74,11 +74,14 @@ Theatrix.init = function() {
 
 	Theatrix.data.direction = 'start';
 	Theatrix.data.out = '';
-	
+
 	$('body').removeData('in out direction');
-	$('#'+Theatrix.settings.navigation+' li').removeClass('active');
-	$('#'+Theatrix.settings.navigation+' li:first-of-type').addClass('active');
-	Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').attr('id');
+
+	if (Theatrix.settings.hashEnabled && window.location.hash && $('#'+Theatrix.settings.navigation+' li#'+window.location.hash.replace('#','')).length) {
+		Theatrix.data.in = window.location.hash.replace('#','');
+	} else {
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li:first-of-type').attr('id');
+	}	
 	Theatrix.change();
 }
 
@@ -147,6 +150,12 @@ Theatrix.change = function(direction, active, from, lock) {
 		}, Theatrix.data.lock);
 	}
 	Theatrix.data.lock = '';
+
+	if (Theatrix.settings.hashEnabled) {
+		window.location.hash = $('#'+Theatrix.settings.navigation+' li.active').attr('id');
+	} else {
+		window.location.hash = '';
+	}
 }
 
 /* 
@@ -289,6 +298,24 @@ if (Theatrix.settings.clickEnabled) {
 				Theatrix.data.lock = $(this).data('trigger').split(',')[1].trim();			
 			}
 			Theatrix.change();
+		}
+	});
+}
+
+/* 
+ | ------------------------------------------------------------
+ | Check for Hash change
+ | ------------------------------------------------------------
+ | This event is called when the hash is changed.
+ |
+ */
+if (Theatrix.settings.hashEnabled) {
+	$(window).on('hashchange', function(event) {
+		if (!Theatrix.settings.hashEnabled || (window.location.hash && $('#'+Theatrix.settings.navigation+' li#'+window.location.hash.replace('#','')).hasClass('active'))) {
+			return false;
+		}	
+		if ($('#'+Theatrix.settings.navigation+' li#'+window.location.hash.replace('#','')).length) {
+			window.location.reload();
 		}
 	});
 }
