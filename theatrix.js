@@ -21,7 +21,7 @@ var Theatrix = {
 		out: '',
 	},
 	settings: {
-		defaultLock: 500,
+		defaultLock: 200,
 		navigation: 'navigation',
 		urlEnabled: true,
 		parallaxEnabled: true,
@@ -95,6 +95,7 @@ Theatrix.change = function(direction, active, from, lock) {
 	if (active) { Theatrix.data.in = active; }
 	if (from) { Theatrix.data.out = from; }
 	if (direction) { Theatrix.data.direction = direction; }
+	if (lock) { Theatrix.data.lock = lock; }
 	
 	$('#'+Theatrix.settings.navigation+' li').removeClass('active');
 	$('#'+Theatrix.data.in).addClass('active');
@@ -109,6 +110,7 @@ Theatrix.change = function(direction, active, from, lock) {
 		}
 		$('body').addClass(Theatrix.data.direction);
 	}
+
 	if (Theatrix.settings.bodyDataEnabled) {
 		if ( Theatrix.data.direction != 'start' ) {
 			$('body').attr('data-out', Theatrix.data.out);
@@ -116,38 +118,35 @@ Theatrix.change = function(direction, active, from, lock) {
 		$('body').attr('data-in', Theatrix.data.in);
 		$('body').attr('data-direction', Theatrix.data.direction);
 	}
-	if (lock) {
-		Theatrix.lockTimer = lock;
-	} else if (!Theatrix.lockTimer) {
-		Theatrix.lockTimer = Theatrix.defaultLock;
-	}
 
+	if (Theatrix.data.lock == '') {
+		Theatrix.data.lock = Theatrix.settings.defaultLock;
+	}
 	if (Theatrix.settings.clickEnabled) {
 		Theatrix.settings.clickEnabled = false;
 		setTimeout(function() {
 			Theatrix.settings.clickEnabled = true;
-		}, Theatrix.lockTimer);
+		}, Theatrix.data.lock);
 	}
 	if (Theatrix.settings.scrollEnabled) {
 		Theatrix.settings.scrollEnabled = false;
 		setTimeout(function() {
 			Theatrix.settings.scrollEnabled = true;
-		}, Theatrix.lockTimer);
+		}, Theatrix.data.lock);
 	}
 	if (Theatrix.settings.keyboardEnabled) {
 		Theatrix.settings.keyboardEnabled = false;
 		setTimeout(function() {
 			Theatrix.settings.keyboardEnabled = true;
-		}, Theatrix.lockTimer);
+		}, Theatrix.data.lock);
 	}
 	if (Theatrix.settings.swipeEnabled) {
 		Theatrix.settings.swipeEnabled = false;
 		setTimeout(function() {
 			Theatrix.settings.swipeEnabled = true;
-		}, Theatrix.lockTimer);
+		}, Theatrix.data.lock);
 	}
-	console.log(Theatrix.lockTimer);
-	Theatrix.lockTimer = '';
+	Theatrix.data.lock = '';
 }
 
 /* 
@@ -165,21 +164,24 @@ Theatrix.checkKey = function(e) {
 	
 	if (e.keyCode == 38 && $('#'+Theatrix.settings.navigation+' li.active').data('up') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('up') ).length) {
 		Theatrix.data.direction = 'up';
-	} else if (e.keyCode == 39 && $('#'+Theatrix.settings.navigation+' li.active').data('right') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('right') ).length) {
+	} else if (e.keyCode == 39 && $('#'+Theatrix.settings.navigation+' li.active').data('right') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('right') ).length) {
 		Theatrix.data.direction = 'right';
-	} else if (e.keyCode == 40 && $('#'+Theatrix.settings.navigation+' li.active').data('down') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('down') ).length) {
+	} else if (e.keyCode == 40 && $('#'+Theatrix.settings.navigation+' li.active').data('down') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('down') ).length) {
 		Theatrix.data.direction = 'down';
-	} else if (e.keyCode == 37 && $('#'+Theatrix.settings.navigation+' li.active').data('left') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('left') ).length) {
+	} else if (e.keyCode == 37 && $('#'+Theatrix.settings.navigation+' li.active').data('left') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('left') ).length) {
 		Theatrix.data.direction = 'left';
-	} else if (e.keyCode == 27 && $('#'+Theatrix.settings.navigation+' li.active').data('esc') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('esc') ).length) {
+	} else if (e.keyCode == 27 && $('#'+Theatrix.settings.navigation+' li.active').data('esc') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('esc') ).length) {
 		Theatrix.data.direction = 'esc';
-	} else if (e.keyCode == 13 && $('#'+Theatrix.settings.navigation+' li.active').data('enter') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('enter') ).length) {
+	} else if (e.keyCode == 13 && $('#'+Theatrix.settings.navigation+' li.active').data('enter') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('enter') ).length) {
 		Theatrix.data.direction = 'enter';
 	}
 	
 	if (Theatrix.data.direction) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data( Theatrix.data.direction );
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[0].trim();
+		if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1]) {
+			Theatrix.data.lock = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1].trim();
+		}
 		Theatrix.change();
 	}
 }
@@ -233,7 +235,10 @@ Theatrix.checkScroll = function(e) {
 	}
 	if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction)) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data( Theatrix.data.direction );
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[0].trim();
+		if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1]) {
+			Theatrix.data.lock = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1].trim();
+		}
 		Theatrix.change();
 	}
 	return false;
@@ -252,13 +257,13 @@ if (Theatrix.settings.scrollEnabled) {
  */
 if (Theatrix.settings.clickEnabled) {
 	$('[data-link]').on('click', function(event) {
-		if (!Theatrix.clickEnabled) { return; }
+		if (!Theatrix.settings.clickEnabled) { return; }
 		if ($(this).data('link') && $( '#'+$(this).data('link') ).length) {
 			Theatrix.data.direction = 'link';
 			Theatrix.data.out = Theatrix.data.in;
-			Theatrix.data.in = $(this).data('link').split(',')[0];
+			Theatrix.data.in = $(this).data('link').split(',')[0].trim();
 			if ($(this).data('link').split(',')[1]) {
-				Theatrix.lockTimer = $(this).data('link').split(',')[1];			
+				Theatrix.data.lock = $(this).data('link').split(',')[1].trim();			
 			}
 			Theatrix.change();
 		}
@@ -279,9 +284,9 @@ if (Theatrix.settings.clickEnabled) {
 		if ($('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger'))) {
 			Theatrix.data.direction = $(this).data('trigger');
 			Theatrix.data.out = Theatrix.data.in;
-			Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger'));
+			Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger').split(',')[0].trim());
 			if ($(this).data('trigger').split(',')[1]) {
-				Theatrix.lockTimer = $(this).data('trigger').split(',')[1];			
+				Theatrix.data.lock = $(this).data('trigger').split(',')[1].trim();			
 			}
 			Theatrix.change();
 		}
