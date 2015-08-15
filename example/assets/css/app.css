@@ -856,40 +856,40 @@ ul#navigation li:hover:after {
 
 .scene {
   position: absolute;
-  top: 40px;
-  left: 80px;
+  top: 20px;
+  left: 40px;
   background-color: #666;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   box-sizing: border-box; }
 
 .scene01 {
-  margin-left: -40px;
+  margin-left: -20px;
   border-bottom: 1px solid #fff; }
 
 .scene11 {
-  margin-left: 40px;
+  margin-left: 20px;
   border-bottom: 1px solid #fff; }
 
 .scene2 {
-  margin-top: 40px; }
+  margin-top: 20px; }
 
 .scene02 {
-  margin-left: -40px;
-  margin-top: 40px;
+  margin-left: -20px;
+  margin-top: 20px;
   border-top: 1px solid #fff; }
 
 .scene.scene12 {
-  margin-left: 40px;
-  margin-top: 40px;
+  margin-left: 20px;
+  margin-top: 20px;
   border-top: 1px solid #fff; }
 
 .scene3 {
-  margin-top: 80px; }
+  margin-top: 40px; }
 
 .scene4 {
-  margin-top: 120px; }
+  margin-top: 60px; }
 
 body.scene1-in .scene.scene1,
 body.scene01-in .scene.scene01,
@@ -901,7 +901,7 @@ body.scene3-in .scene.scene3,
 body.scene4-in .scene.scene4 {
   background-color: #af4444; }
 
-.illustration.cards {
+.animation {
   position: absolute;
   right: 0;
   top: 0;
@@ -909,7 +909,7 @@ body.scene4-in .scene.scene4 {
   height: 100%;
   pointer-events: none;
   display: none; }
-  .illustration.cards .card-1 {
+  .animation .block {
     position: absolute;
     top: calc(50% - 100px);
     right: calc(25% - 100px);
@@ -917,67 +917,67 @@ body.scene4-in .scene.scene4 {
     height: 200px;
     background-color: #af4444; }
 
-body .illustration.cards {
+body .animation {
   -webkit-animation: fadeOut 250ms linear;
           animation: fadeOut 250ms linear;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both; }
 
-body.down .illustration.cards {
+body.down .animation {
   -webkit-animation-name: toUp;
           animation-name: toUp; }
 
-body.up .illustration.cards {
+body.up .animation {
   -webkit-animation-name: toDown;
           animation-name: toDown; }
 
-body.left .illustration.cards {
+body.left .animation {
   -webkit-animation-name: toRight;
           animation-name: toRight; }
 
-body.right .illustration.cards {
+body.right .animation {
   -webkit-animation-name: toLeft;
           animation-name: toLeft; }
 
-body.scene2 .illustration.cards,
-body.scene02 .illustration.cards,
-body.scene4 .illustration.cards {
+body.scene2 .animation,
+body.scene02 .animation,
+body.scene4 .animation {
   display: inline-block; }
 
-body.scene2-in .illustration.cards,
-body.scene02-in .illustration.cards,
-body.scene4-in .illustration.cards {
+body.scene2-in .animation,
+body.scene02-in .animation,
+body.scene4-in .animation {
   -webkit-animation: fadeIn 250ms linear;
           animation: fadeIn 250ms linear;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both; }
 
-body.scene2-in.down .illustration.cards,
-body.scene02-in.down .illustration.cards,
-body.scene4-in.down .illustration.cards {
+body.scene2-in.down .animation,
+body.scene02-in.down .animation,
+body.scene4-in.down .animation {
   -webkit-animation-name: fromDown;
           animation-name: fromDown; }
 
-body.scene2-in.up .illustration.cards,
-body.scene02-in.up .illustration.cards,
-body.scene4-in.up .illustration.cards {
+body.scene2-in.up .animation,
+body.scene02-in.up .animation,
+body.scene4-in.up .animation {
   -webkit-animation-name: fromUp;
           animation-name: fromUp; }
 
-body.scene2-in.left .illustration.cards,
-body.scene02-in.left .illustration.cards,
-body.scene4-in.left .illustration.cards {
+body.scene2-in.left .animation,
+body.scene02-in.left .animation,
+body.scene4-in.left .animation {
   -webkit-animation-name: fromLeft;
           animation-name: fromLeft; }
 
-body.scene2-in.right .illustration.cards,
-body.scene02-in.right .illustration.cards,
-body.scene4-in.right .illustration.cards {
+body.scene2-in.right .animation,
+body.scene02-in.right .animation,
+body.scene4-in.right .animation {
   -webkit-animation-name: fromRight;
           animation-name: fromRight; }
 
-body.scene02-in.left .illustration.cards,
-body.scene2-in.right .illustration.cards {
+body.scene02-in.left .animation,
+body.scene2-in.right .animation {
   -webkit-animation-name: none;
           animation-name: none; }
 

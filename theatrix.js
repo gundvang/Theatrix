@@ -34,7 +34,7 @@ var Theatrix = {
 		bodyClassEnabled: true,
 		bodyDataEnabled: true,
 		// scrollHorizontal: false,
-	}
+	},
 };
 
 /* 
@@ -58,7 +58,7 @@ Theatrix.setup = function(e) {
 	if (typeof(e.bodyClassEnabled) != 'undefined') { Theatrix.settings.bodyClassEnabled = e.bodyClassEnabled; }
 	if (typeof(e.bodyDataEnabled) != 'undefined') { Theatrix.settings.bodyDataEnabled = e.bodyDataEnabled; }
 	if (typeof(e.scrollHorizontal) != 'undefined') { Theatrix.settings.scrollHorizontal = e.scrollHorizontal; }
-}
+};
 
 /* 
  | ------------------------------------------------------------
@@ -83,7 +83,7 @@ Theatrix.init = function() {
 		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li:first-of-type').attr('id');
 	}	
 	Theatrix.change();
-}
+};
 
 /* 
  | ------------------------------------------------------------
@@ -156,7 +156,7 @@ Theatrix.change = function(direction, active, from, lock) {
 	} else {
 		window.location.hash = '';
 	}
-}
+};
 
 /* 
  | ------------------------------------------------------------
@@ -193,7 +193,7 @@ Theatrix.checkKey = function(e) {
 		}
 		Theatrix.change();
 	}
-}
+};
 if (Theatrix.settings.keyboardEnabled) {
 	$('body').on('keydown', Theatrix.checkKey);
 }
@@ -212,9 +212,7 @@ Theatrix.checkScroll = function(e) {
 	Theatrix.scroll.timer = setTimeout(function() {
 		Theatrix.scroll.active = false;
 	}, Theatrix.scroll.lock);
-
 	if (!Theatrix.settings.scrollEnabled || Theatrix.scroll.active) { return; }
-
 	Theatrix.scroll.active = true;
 
 	var xy = e.originalEvent.wheelDelta || -e.originalEvent.detail,
@@ -251,7 +249,7 @@ Theatrix.checkScroll = function(e) {
 		Theatrix.change();
 	}
 	return false;
-}
+};
 if (Theatrix.settings.scrollEnabled) {
 	$(document).on('mousewheel DOMMouseScroll', Theatrix.checkScroll);
 }
