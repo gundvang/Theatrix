@@ -9,7 +9,7 @@
  */
 var Theatrix = {
 	info: {
-		version: '0.3',
+		version: '0.5',
 		documentation: 'https://github.com/gundvang/theatrix',
 	},
 	scroll: {
@@ -77,10 +77,10 @@ Theatrix.init = function() {
 
 	$('body').removeData('in out direction');
 
-	if (Theatrix.settings.hashEnabled && window.location.hash && $('#'+Theatrix.settings.navigation+' li#'+window.location.hash.replace('#','')).length) {
+	if (Theatrix.settings.hashEnabled && window.location.hash && $('#'+Theatrix.settings.navigation+' *#'+window.location.hash.replace('#','')).length) {
 		Theatrix.data.in = window.location.hash.replace('#','');
 	} else {
-		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li:first-of-type').attr('id');
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' *:first-of-type').attr('id');
 	}	
 	Theatrix.change();
 };
@@ -100,9 +100,11 @@ Theatrix.change = function(direction, active, from, lock) {
 	if (direction) { Theatrix.data.direction = direction; }
 	if (lock) { Theatrix.data.lock = lock; }
 	
-	$('#'+Theatrix.settings.navigation+' li').removeClass('active');
+	// change active element in navigation
+	$('#'+Theatrix.settings.navigation+' *').removeClass('active');
 	$('#'+Theatrix.data.in).addClass('active');
 
+	// add classes to body-tag if enabled
 	if (Theatrix.settings.bodyClassEnabled) {
 		$('body').removeClass();
 		if (Theatrix.data.out) {
@@ -114,6 +116,7 @@ Theatrix.change = function(direction, active, from, lock) {
 		$('body').addClass(Theatrix.data.direction);
 	}
 
+	// add data to body-tag if enabled
 	if (Theatrix.settings.bodyDataEnabled) {
 		if ( Theatrix.data.direction != 'start' ) {
 			$('body').attr('data-out', Theatrix.data.out);
@@ -122,6 +125,7 @@ Theatrix.change = function(direction, active, from, lock) {
 		$('body').attr('data-direction', Theatrix.data.direction);
 	}
 
+	// lock interaction for set time
 	if (Theatrix.data.lock == '') {
 		Theatrix.data.lock = Theatrix.settings.defaultLock;
 	}
@@ -151,10 +155,20 @@ Theatrix.change = function(direction, active, from, lock) {
 	}
 	Theatrix.data.lock = '';
 
+	// set hash if enabled
 	if (Theatrix.settings.hashEnabled) {
-		window.location.hash = $('#'+Theatrix.settings.navigation+' li.active').attr('id');
+		window.location.hash = $('#'+Theatrix.settings.navigation+' *.active').attr('id');
 	} else {
 		window.location.hash = '';
+	}
+	
+	// call callback-in function if set
+	if (Theatrix.data.out && $('#'+Theatrix.settings.navigation+' #'+Theatrix.data.out).data('callback-out')) {
+		window[$('#'+Theatrix.settings.navigation+' #'+Theatrix.data.out).data('callback-out')]();
+	}
+	// call callback-out function if set
+	if (Theatrix.data.in && $('#'+Theatrix.settings.navigation+' #'+Theatrix.data.in).data('callback-in')) {
+		window[$('#'+Theatrix.settings.navigation+' #'+Theatrix.data.in).data('callback-in')]();
 	}
 };
 
@@ -171,25 +185,25 @@ Theatrix.checkKey = function(e) {
 	if (!Theatrix.settings.keyboardEnabled) { return; }
 	Theatrix.data.direction = '';
 	
-	if (e.keyCode == 38 && $('#'+Theatrix.settings.navigation+' li.active').data('up') && $( '#'+$('#'+Theatrix.settings.navigation+' li.active').data('up') ).length) {
+	if (e.keyCode == 38 && $('#'+Theatrix.settings.navigation+' *.active').data('up') && $( '#'+$('#'+Theatrix.settings.navigation+' *.active').data('up') ).length) {
 		Theatrix.data.direction = 'up';
-	} else if (e.keyCode == 39 && $('#'+Theatrix.settings.navigation+' li.active').data('right') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('right') ).length) {
+	} else if (e.keyCode == 39 && $('#'+Theatrix.settings.navigation+' *.active').data('right') && $('#'+$('#'+Theatrix.settings.navigation+' *.active').data('right') ).length) {
 		Theatrix.data.direction = 'right';
-	} else if (e.keyCode == 40 && $('#'+Theatrix.settings.navigation+' li.active').data('down') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('down') ).length) {
+	} else if (e.keyCode == 40 && $('#'+Theatrix.settings.navigation+' *.active').data('down') && $('#'+$('#'+Theatrix.settings.navigation+' *.active').data('down') ).length) {
 		Theatrix.data.direction = 'down';
-	} else if (e.keyCode == 37 && $('#'+Theatrix.settings.navigation+' li.active').data('left') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('left') ).length) {
+	} else if (e.keyCode == 37 && $('#'+Theatrix.settings.navigation+' *.active').data('left') && $('#'+$('#'+Theatrix.settings.navigation+' *.active').data('left') ).length) {
 		Theatrix.data.direction = 'left';
-	} else if (e.keyCode == 27 && $('#'+Theatrix.settings.navigation+' li.active').data('esc') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('esc') ).length) {
+	} else if (e.keyCode == 27 && $('#'+Theatrix.settings.navigation+' *.active').data('esc') && $('#'+$('#'+Theatrix.settings.navigation+' *.active').data('esc') ).length) {
 		Theatrix.data.direction = 'esc';
-	} else if (e.keyCode == 13 && $('#'+Theatrix.settings.navigation+' li.active').data('enter') && $('#'+$('#'+Theatrix.settings.navigation+' li.active').data('enter') ).length) {
+	} else if (e.keyCode == 13 && $('#'+Theatrix.settings.navigation+' *.active').data('enter') && $('#'+$('#'+Theatrix.settings.navigation+' *.active').data('enter') ).length) {
 		Theatrix.data.direction = 'enter';
 	}
 	
 	if (Theatrix.data.direction) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[0].trim();
-		if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1]) {
-			Theatrix.data.lock = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1].trim();
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction).split(',')[0].trim();
+		if ($('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction).split(',')[1]) {
+			Theatrix.data.lock = $('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction).split(',')[1].trim();
 		}
 		Theatrix.change();
 	}
@@ -240,11 +254,11 @@ Theatrix.checkScroll = function(e) {
 			Theatrix.data.direction = 'down';
 		}
 	}
-	if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction)) {
+	if ($('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction)) {
 		Theatrix.data.out = Theatrix.data.in;
-		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[0].trim();
-		if ($('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1]) {
-			Theatrix.data.lock = $('#'+Theatrix.settings.navigation+' li.active').data(Theatrix.data.direction).split(',')[1].trim();
+		Theatrix.data.in = $('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction).split(',')[0].trim();
+		if ($('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction).split(',')[1]) {
+			Theatrix.data.lock = $('#'+Theatrix.settings.navigation+' *.active').data(Theatrix.data.direction).split(',')[1].trim();
 		}
 		Theatrix.change();
 	}
@@ -288,10 +302,10 @@ if (Theatrix.settings.clickEnabled) {
 if (Theatrix.settings.clickEnabled) {
 	$('[data-trigger]').on('click', function(event) {
 		if (!Theatrix.settings.clickEnabled) { return; }
-		if ($('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger'))) {
+		if ($('#'+Theatrix.settings.navigation+' *.active').data($(this).data('trigger'))) {
 			Theatrix.data.direction = $(this).data('trigger');
 			Theatrix.data.out = Theatrix.data.in;
-			Theatrix.data.in = $('#'+Theatrix.settings.navigation+' li.active').data($(this).data('trigger').split(',')[0].trim());
+			Theatrix.data.in = $('#'+Theatrix.settings.navigation+' *.active').data($(this).data('trigger').split(',')[0].trim());
 			if ($(this).data('trigger').split(',')[1]) {
 				Theatrix.data.lock = $(this).data('trigger').split(',')[1].trim();			
 			}
@@ -309,10 +323,10 @@ if (Theatrix.settings.clickEnabled) {
  */
 if (Theatrix.settings.hashEnabled) {
 	$(window).on('hashchange', function(event) {
-		if (!Theatrix.settings.hashEnabled || (window.location.hash && $('#'+Theatrix.settings.navigation+' li#'+window.location.hash.replace('#','')).hasClass('active'))) {
+		if (!Theatrix.settings.hashEnabled || (window.location.hash && $('#'+Theatrix.settings.navigation+' *#'+window.location.hash.replace('#','')).hasClass('active'))) {
 			return false;
 		}	
-		if ($('#'+Theatrix.settings.navigation+' li#'+window.location.hash.replace('#','')).length) {
+		if ($('#'+Theatrix.settings.navigation+' *#'+window.location.hash.replace('#','')).length) {
 			window.location.reload();
 		}
 	});

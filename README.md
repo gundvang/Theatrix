@@ -3,9 +3,9 @@ Easily create interactive sites with keyboard, mouse and touch support.
 
 
 ## Requirements
-Theatrix requires [jQuery](https://jquery.com/) (2.1.4 minimum).  
-Theatrix uses [Fastclick](https://github.com/ftlabs/fastclick) for quicker touch response. But this can be disabled with `Theatrix.fastClickEnabled`.  
-Theatrix uses [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin) for touch-functionality. But this can be disabled with `Theatrix.swipeEnabled`.  
+Theatrix requires [jQuery](https://jquery.com/) (2.1.4 minimum) for its functionality to work correctly.  
+Theatrix uses [Fastclick](https://github.com/ftlabs/fastclick) for quicker touch response. This can be disabled with `Theatrix.fastClickEnabled`.  
+Theatrix uses [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin) for touch-functionality. This can be disabled with `Theatrix.swipeEnabled`.  
 
 
 ## Creating navigation
@@ -22,16 +22,6 @@ Theatrix works by looking through the navigation and looking for data-tags linki
 Data-tags are how you tell Theatrix what to do on certain inputs.  
 Most of the tags are used in the navigation.  
 But some can also be used outside of the navigation.
-
-
-##### `data-link=""`
-Link to a scene on click.  
-(the value should be the name of an element in the navigation)
-
-
-##### `data-direction=""`
-Overwrites data-link's default data-direction.  
-(possible values: `start`/`up`/`down`/`left`/`right`/`link`/`esc`/`enter`)
 
 
 ##### `data-up=""`
@@ -74,8 +64,18 @@ Call a js function on out. (used inside of navigation)
 (the value should be the name of a custom javascript function)
 
 
+##### `data-link=""`
+Link to a scene on click.  
+(the value should be the name of an element in the navigation)
+
+
+##### `data-direction=""`
+Overwrites data-link's default data-direction.  
+(possible values: `start`/`up`/`down`/`left`/`right`/`link`/`esc`/`enter`)
+
+
 ##### `data-trigger=""`
-Triggers another call on the active scene. (used outside of navigation)  
+Triggers another call on the active scene on click. (used outside of navigation)  
 (possible values: `start`/`up`/`down`/`left`/`right`/`link`/`esc`/`enter`)
 
 
