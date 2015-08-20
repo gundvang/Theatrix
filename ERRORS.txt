@@ -1,0 +1,3 @@
+Check if scene is already active. And ignore data-link click if active.
+
+Check for orientation change on touch devices. And reload if changed.
