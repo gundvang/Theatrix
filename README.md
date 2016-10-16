@@ -1,15 +1,15 @@
-# Theatrix (in development)
+# TheatrixJS (in development)
 Easily create interactive sites with keyboard, mouse and touch support.
 
 
 ## Requirements
-Theatrix requires [jQuery](https://jquery.com/) (2.1.4 minimum) for its functionality to work correctly.  
-Theatrix uses [Fastclick](https://github.com/ftlabs/fastclick) for quicker touch response. This can be disabled with `Theatrix.fastClickEnabled`.  
-Theatrix uses [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin) for touch-functionality. This can be disabled with `Theatrix.swipeEnabled`.  
+TheatrixJS requires [jQuery](https://jquery.com/) (2.1.4 minimum) for its functionality to work correctly.  
+TheatrixJS uses [Fastclick](https://github.com/ftlabs/fastclick) for quicker touch response. This can be disabled with `Theatrix.fastClickEnabled`.  
+TheatrixJS uses [TouchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin) for touch-functionality. This can be disabled with `Theatrix.swipeEnabled`.  
 
 
 ## Creating navigation
-Theatrix works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
+TheatrixJS works by looking through the navigation and looking for data-tags linking to different scenes for different directions. Below is shown an example of such a navigation:
 ```
 <ul id="navigation">
 	<li id="scene1" data-down="scene2" data-link="scene1">Scene 1</li>
@@ -19,7 +19,7 @@ Theatrix works by looking through the navigation and looking for data-tags linki
 ```
 
 ### data-tags
-Data-tags are how you tell Theatrix what to do on certain inputs.  
+Data-tags are how you tell TheatrixJS what to do on certain inputs.  
 Most of the tags are used in the navigation.  
 But some can also be used outside of the navigation.
 
@@ -103,7 +103,7 @@ body.scene2-in.down .scene {  }
 
 
 ## Setup customization
-Theatrix can be customized by changing the settings in the setup function (`Theatrix.setup({});`) before initializing.
+TheatrixJS can be customized by changing the settings in the setup function (`Theatrix.setup({});`) before initializing.
 Below is a list of settings that can be changed via the setup function:
 
 ##### `defaultTime: 1000`
